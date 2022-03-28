@@ -4,10 +4,10 @@ import sys
 
 # Options
 input_file = list()
-rc_intensity = 2		# Random character intensity
+rc_intensity = 0		# Random character intensity
 rc_random_syms = False
 rc_random_upper = False
-word_rand = 0
+word_rand = 1
 
 # Parse command line arguments
 if len(sys.argv) == 1:
@@ -51,9 +51,14 @@ def generate_chars(writer, prefix, n):
 	if n == 0:
 		return
 	for c in letters:
-		current = prefix + c
-		writer.write(current + "\n")
-		generate_chars(writer, current, n - 1)
+		current1 = prefix + c
+		current2 = c + prefix
+		
+		writer.write(current1 + "\n")
+		writer.write(current2 + "\n")
+		
+		generate_chars(writer, current1, n - 1)
+		generate_chars(writer, current2, n - 1)
 
 def generateSymbolVariants(writer, word2):
 	for j in range(0, len(symbols)):
